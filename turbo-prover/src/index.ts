@@ -18,14 +18,14 @@ export * from './turbo_verifier';
  * @param serializedCircuit - The serialized Barretenberg circuit for which we want to prove against
  * @returns A tuple of a prover and verifier for the `serializedCircuit`.
  */
-export async function setup_turbo_prover_and_verifier(
+export async function setupTurboProverAndVerifier(
   serializedCircuit: Uint8Array,
 ): Promise<[TurboProver, TurboVerifier]> {
   const barretenberg = await BarretenbergWasm.new();
 
   const circSize = await getCircuitSize(barretenberg, serializedCircuit);
 
-  const crs = await load_crs(circSize);
+  const crs = await loadCrs(circSize);
 
   const numWorkers = getNumCores();
 
@@ -52,7 +52,7 @@ export async function setup_turbo_prover_and_verifier(
   return Promise.all([turboProver, turboVerifier]);
 }
 
-async function load_crs(circSize: number): Promise<Crs> {
+async function loadCrs(circSize: number): Promise<Crs> {
   // We may need more elements in the SRS than the circuit size. In particular, we may need circSize +1
   // We add an offset here to account for that
   const offset = 1;
@@ -63,12 +63,12 @@ async function load_crs(circSize: number): Promise<Crs> {
   return crs;
 }
 
-async function getCircuitSize(wasm: BarretenbergWasm, constraint_system: Uint8Array): Promise<number> {
-  let pool = new WorkerPool();
+async function getCircuitSize(wasm: BarretenbergWasm, constraintSystem: Uint8Array): Promise<number> {
+  const pool = new WorkerPool();
   await pool.init(wasm.module, 8);
-  let worker = pool.workers[0];
+  const worker = pool.workers[0];
 
-  const buf = Buffer.from(constraint_system);
+  const buf = Buffer.from(constraintSystem);
   const mem = await worker.call('bbmalloc', buf.length);
   await worker.transferToHeap(buf, mem);
 
@@ -78,14 +78,14 @@ async function getCircuitSize(wasm: BarretenbergWasm, constraint_system: Uint8Ar
   return pow2ceil(circSize);
 }
 
-export async function create_proof(prover: TurboProver, witness_arr: Uint8Array): Promise<Uint8Array> {
+export async function createProof(prover: TurboProver, witnessArr: Uint8Array): Promise<Uint8Array> {
   // computes the proof
-  const proof = await prover.createProof(witness_arr);
+  const proof = await prover.createProof(witnessArr);
 
   return proof;
 }
 
-export async function verify_proof(verifier: TurboVerifier, proof: Buffer): Promise<boolean> {
+export async function verifyProof(verifier: TurboVerifier, proof: Buffer): Promise<boolean> {
   const verified = await verifier.verifyProof(proof);
   return verified;
 }
@@ -104,7 +104,7 @@ function getNumCores(): number {
 function pow2ceil(v: number): number {
   if (v > 0 && !(v & (v - 1))) return v;
 
-  var p = 2;
+  let p = 2;
   while ((v >>= 1)) {
     p <<= 1;
   }
