@@ -7,6 +7,10 @@
 !.yarn/versions
 .pnp.*
 
+# NPM
+package.tgz
+
 node_modules
 dest
 .cache
+
