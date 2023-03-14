@@ -5,7 +5,10 @@ module.exports = {
     plugins: ['@typescript-eslint'],
     overrides: [
       {
-        files: ['*.ts', '*.tsx']
+        files: ['*.ts', '*.tsx'],
+        parserOptions: {
+          project: ['./tsconfig.json'], // Specify it only for TypeScript files
+        },
       },
     ],
     env: {
@@ -29,10 +32,10 @@ module.exports = {
               group: ['client-dest'],
               message: "Fix this absolute garbage import. It's your duty to solve it before it spreads.",
             },
-            {
-              group: ['dest'],
-              message: 'You should not be importing from a build directory. Did you accidentally do a relative import?',
-            },
+            // {
+            //   group: ['dest'],
+            //   message: 'You should not be importing from a build directory. Did you accidentally do a relative import?',
+            // },
           ],
         },
       ],

@@ -4,7 +4,6 @@
     "moduleResolution": "node",
     "lib": ["dom", "esnext", "es2017.object"],
     "module": "commonjs",
-    "outDir": "dest",
     "strict": true,
     "declaration": true,
     "noImplicitAny": false,
@@ -16,6 +15,5 @@
     "declarationMap": true,
     "importHelpers": true,
     "resolveJsonModule": true
-  },
-  "include": ["src"]
+  }
 }
