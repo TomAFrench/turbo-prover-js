@@ -1,6 +1,7 @@
 {
     "private": true,
     "workspaces": [
+        "acir-turbo-prover",
         "turbo-prover"
     ],
     "packageManager": "yarn@3.4.1"
