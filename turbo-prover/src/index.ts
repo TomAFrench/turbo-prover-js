@@ -1,13 +1,13 @@
-import { Crs } from '@noir-lang/barretenberg/dest/crs';
-import { PooledFft } from '@noir-lang/barretenberg/dest/fft';
-import { PooledPippenger } from '@noir-lang/barretenberg/dest/pippenger';
-import { BarretenbergWasm, WorkerPool } from '@noir-lang/barretenberg/dest/wasm';
-import { Prover } from '@noir-lang/barretenberg/dest/client_proofs/prover';
-import { TurboProver } from './turbo_prover';
-import { TurboVerifier } from './turbo_verifier';
+import { Crs } from '@aztec/barretenberg/crs';
+import { PooledFft } from '@aztec/barretenberg/fft';
+import { PooledPippenger } from '@aztec/barretenberg/pippenger';
+import { BarretenbergWasm, WorkerPool } from '@aztec/barretenberg/wasm';
+import { Prover } from '@aztec/barretenberg/client_proofs';
+import { TurboProver } from './turbo_prover.js';
+import { TurboVerifier } from './turbo_verifier.js';
 
-export * from './turbo_prover';
-export * from './turbo_verifier';
+export * from './turbo_prover.js';
+export * from './turbo_verifier.js';
 
 /**
  * Takes in a serialized `standard_format` Barretenberg circuit and returns a prover/verifier for this circuit.
@@ -58,7 +58,7 @@ async function loadCrs(circSize: number): Promise<Crs> {
   const offset = 1;
 
   const crs = new Crs(circSize + offset);
-  await crs.download();
+  await crs.init();
 
   return crs;
 }

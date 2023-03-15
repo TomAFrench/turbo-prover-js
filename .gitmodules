@@ -1,0 +1,4 @@
+[submodule "barretenberg"]
+	path = barretenberg
+	url = https://github.com/ludamad/barretenberg
+	branch = adam/feat/restored-aztec2-api

@@ -2,13 +2,17 @@
   "name": "@noir-lang/turbo-prover",
   "version": "0.1.0",
   "main": "dest/index.js",
+  "type": "module",
   "license": "GPL-2.0",
   "scripts": {
     "build": "yarn clean && tsc -p tsconfig.dest.json",
     "build:dev": "tsc -p tsconfig.dest.json --watch",
-    "clean": "rm -rf ./dest ./.cache",
+    "clean": "rm -rf ./dest .tsbuildinfo",
     "test": "jest --passWithNoTests",
     "formatting": "prettier --check ./src && eslint --max-warnings 0 ./src"
+  },
+  "exports": {
+    ".": "./dest/index.js"
   },
   "jest": {
     "testEnvironment": "jsdom",
@@ -24,7 +28,7 @@
     "since 2017-06"
   ],
   "dependencies": {
-    "@noir-lang/barretenberg": "2.19.0"
+    "@aztec/barretenberg": "file:../barretenberg/ts"
   },
   "devDependencies": {
     "@types/node": "^18.15.3",

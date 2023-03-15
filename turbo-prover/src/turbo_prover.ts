@@ -1,4 +1,4 @@
-import { Prover } from '@noir-lang/barretenberg/dest/client_proofs/prover';
+import { Prover } from '@aztec/barretenberg/client_proofs';
 
 export class TurboProver {
   constructor(private prover: Prover) {}
