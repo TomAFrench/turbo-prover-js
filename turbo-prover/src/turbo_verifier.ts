@@ -1,5 +1,5 @@
-import { BarretenbergWorker } from '@aztec/barretenberg/wasm';
-import { SinglePippenger } from '@aztec/barretenberg/pippenger';
+import { BarretenbergWorker } from './wasm/index.js';
+import { SinglePippenger } from './pippenger/index.js';
 
 export class TurboVerifier {
   private worker!: BarretenbergWorker;

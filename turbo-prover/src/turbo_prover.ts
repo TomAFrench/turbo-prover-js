@@ -1,4 +1,4 @@
-import { Prover } from '@aztec/barretenberg/client_proofs';
+import { Prover } from './client_proofs/index.js';
 
 export class TurboProver {
   constructor(private prover: Prover) {}

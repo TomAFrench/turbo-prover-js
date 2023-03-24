@@ -1,8 +1,8 @@
-import { Crs } from '@aztec/barretenberg/crs';
-import { PooledFft } from '@aztec/barretenberg/fft';
-import { PooledPippenger } from '@aztec/barretenberg/pippenger';
-import { BarretenbergWasm, WorkerPool } from '@aztec/barretenberg/wasm';
-import { Prover } from '@aztec/barretenberg/client_proofs';
+import { Crs } from './crs/index.js';
+import { PooledFft } from './fft/index.js';
+import { PooledPippenger } from './pippenger/index.js';
+import { BarretenbergWasm, WorkerPool } from './wasm/index.js';
+import { Prover } from './client_proofs/index.js';
 import { TurboProver } from './turbo_prover.js';
 import { TurboVerifier } from './turbo_verifier.js';
 
@@ -58,7 +58,7 @@ async function loadCrs(circSize: number): Promise<Crs> {
   const offset = 1;
 
   const crs = new Crs(circSize + offset);
-  await crs.init();
+  await crs.download();
 
   return crs;
 }
