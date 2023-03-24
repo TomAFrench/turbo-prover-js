@@ -1,7 +1,63 @@
 {
-    "private": true,
-    "workspaces": [
-        "turbo-prover"
-    ],
-    "packageManager": "yarn@3.4.1"
+  "name": "@noir-lang/turbo-prover",
+  "version": "0.1.0",
+  "main": "dest/index.js",
+  "type": "module",
+  "license": "GPL-2.0",
+  "scripts": {
+    "build": "yarn clean && tsc -p tsconfig.dest.json",
+    "build:dev": "tsc -p tsconfig.dest.json --watch",
+    "clean": "rm -rf ./dest .tsbuildinfo",
+    "test": "jest --passWithNoTests",
+    "formatting": "prettier --check ./src && eslint --max-warnings 0 ./src"
+  },
+  "exports": {
+    ".": "./dest/index.js"
+  },
+  "jest": {
+    "testEnvironment": "jsdom",
+    "transform": {
+      "^.+\\.ts$": "ts-jest"
+    },
+    "testRegex": ".*\\.test\\.ts$",
+    "rootDir": "./src",
+    "testTimeout": 30000,
+    "slowTestThreshold": 60
+  },
+  "browserslist": [
+    "since 2017-06"
+  ],
+  "dependencies": {
+    "@types/detect-node": "^2.0.0",
+    "@types/levelup": "^4.3.0",
+    "buffer-browserify": "^0.2.5",
+    "debug": "^4.1.1",
+    "detect-node": "^2.0.4",
+    "fs-extra": "10.0.0",
+    "is-node": "^1.0.2",
+    "levelup": "^5.0.0",
+    "memdown": "^6.0.0",
+    "node-fetch": "2.6.1",
+    "promise-readable": "^5.0.4",
+    "sha3": "^2.1.3",
+    "threads": "1.7.0",
+    "tslib": "^2.0.0"
+  },
+  "devDependencies": {
+    "@types/debug": "^4.1.5",
+    "@types/fs-extra": "9.0.11",
+    "@types/jest": "^26.0.20",
+    "@types/memdown": "^3.0.0",
+    "@types/node": "^18.15.3",
+    "@typescript-eslint/eslint-plugin": "^5.25.0",
+    "@typescript-eslint/parser": "^5.25.0",
+    "eslint": "^8.16.0",
+    "eslint-config-prettier": "^8.5.0",
+    "jest": "^27.0.3",
+    "prettier": "^2.6.2",
+    "ts-jest": "^27.0.2",
+    "ts-node": "^10.0.0",
+    "typescript": "^5.0.2"
+  },
+  "packageManager": "yarn@3.4.1"
 }
