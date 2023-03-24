@@ -44,7 +44,7 @@ export async function setupTurboProverAndVerifier(
   const prover = new Prover(workerPool.workers[0], pippenger, fft);
 
   const turboProver = new TurboProver(prover, g2Data, provingKey, serializedCircuit, pippenger.pool[0]);
-  const turboVerifier = new TurboVerifier(g2Data, verificationKey, serializedCircuit);
+  const turboVerifier = new TurboVerifier(workerPool.workers[0], g2Data, verificationKey, serializedCircuit);
 
   return Promise.all([turboProver, turboVerifier]);
 }

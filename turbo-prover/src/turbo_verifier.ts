@@ -1,9 +1,8 @@
 import { BarretenbergWorker } from './wasm/index.js';
 
 export class TurboVerifier {
-  private worker!: BarretenbergWorker;
 
-  constructor(private g2Data: Uint8Array, private verificationKey: Uint8Array, private constraintSystem: Uint8Array){}
+  constructor(private worker: BarretenbergWorker, private g2Data: Uint8Array, private verificationKey: Uint8Array, private constraintSystem: Uint8Array){}
 
   public async verifyProof(proof: Uint8Array): Promise<boolean> {
     const g2DataPointer = 0;
