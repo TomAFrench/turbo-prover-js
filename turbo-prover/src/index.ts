@@ -20,12 +20,15 @@ export * from './turbo_verifier.js';
  */
 export async function setupTurboProverAndVerifier(
   serializedCircuit: Uint8Array,
+  provingKey: Uint8Array,
+  verificationKey: Uint8Array,
 ): Promise<[TurboProver, TurboVerifier]> {
   const barretenberg = await BarretenbergWasm.new();
 
   const circSize = await getCircuitSize(barretenberg, serializedCircuit);
 
   const crs = await loadCrs(circSize);
+  const g2Data = crs.getG2Data();
 
   const numWorkers = getNumCores();
 
@@ -40,14 +43,8 @@ export async function setupTurboProverAndVerifier(
 
   const prover = new Prover(workerPool.workers[0], pippenger, fft);
 
-  const turboProver = new TurboProver(prover);
-  await turboProver.initCircuitDefinition(serializedCircuit);
-  const turboVerifier = new TurboVerifier();
-
-  // Create proving key with a dummy CRS
-  await turboProver.computeKey();
-  // Create verifier key *and* patch proving key with the CRS
-  await turboVerifier.computeKey(pippenger.pool[0], crs.getG2Data());
+  const turboProver = new TurboProver(prover, g2Data, provingKey, serializedCircuit, pippenger.pool[0]);
+  const turboVerifier = new TurboVerifier(g2Data, verificationKey, serializedCircuit);
 
   return Promise.all([turboProver, turboVerifier]);
 }
